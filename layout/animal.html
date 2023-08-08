@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style>
+        img{
+            height : 600px;
+            width : 500px;
+            border-radius: 20px;
+            margin-left: 30px;
+            box-shadow: 1px 1px 5px 1px black;
+        }
+        button{
+            margin-bottom: 10px;
+            border-radius: 20px;
+            width: 140px;
+            margin-top: 50px;
+            background-color: aqua;
+            box-shadow: 1px 1px 5px 1px black;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(241, 241, 204);">
+    <h1 align = "center" style="margin-top: 25px;" id = "score">SCORE : 0</h1>
+    <div class = "conatiner" style = "margin-left: 50px; margin-top: 60px;">
+        <div class = "row">
+            <div class = "col-md-3">
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "1">CAT</button></div></div>
+                <div class = "row"><div class = "col-md-2"  ><button onclick = "check(this)" id = "2">COW</button></div></div>
+                <div class = "row"><div class = "col-md-2"  ><button onclick = "check(this)" id = "3">DOG</button></div></div>
+                <div class = "row"><div class = "col-md-2" ><button onclick = "check(this)" id = "4">ELEPHANT</button></div></div>
+                <div class = "row"><div class = "col-md-2"  ><button onclick = "check(this)" id = "5">HORSE</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "6">LION</button></div></div>
+            </div>
+        
+            <div class = "col-md-6" ><img src = "../images/Animal/horse.jpg" id = "photo"></div>
+
+            <div class = "col-md-3">
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "7">MONKEY</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "8">OWL</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "9">POLAR BEAR</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "10">SNAKE</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "11">TIGER</button></div></div>
+                <div class = "row"><div class = "col-md-2"><button onclick = "check(this)" id = "0">ZEBRA</button></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+
+        let animals = {
+            1 : "../images/Animal/cat.jpg", 2 : "../images/Animal/cow.jpg", 3 : "../images/Animal/dog.jpg" , 4 : "../images/Animal/ele.jpg", 5 : "../images/Animal/horse.jpg" , 6 : "../images/Animal/lion.jpg",7 : "../images/Animal/monke.jpg", 
+            8 : "../images/Animal/owl.jpg", 9 : "../images/Animal/polar.jpg", 10 : "../images/Animal/snake.jpg", 
+            11 : "../images/Animal/tiger.jpg", 0 : "../images/Animal/zebra.jpg"
+        };
+
+        let ids = {
+            "../images/Animal/cat.jpg" : "1", "../images/Animal/cow.jpg" : "2", "../images/Animal/dog.jpg" : "3" , "../images/Animal/ele.jpg" : "4", 
+            "../images/Animal/horse.jpg" : "5" , "../images/Animal/lion.jpg" : "6","../images/Animal/monke.jpg" : "7", "../images/Animal/owl.jpg" : "8", "../images/Animal/polar.jpg" : "9", "../images/Animal/snake.jpg" : "10", "../images/Animal/tiger.jpg" : "11", "../images/Animal/zebra.jpg" : "0"
+        };
+
+        let hash = {5 : true};
+        let check = (obj) => {
+            let photo = document.getElementById('photo');
+            let sc = document.getElementById('score');
+            console.log(document.getElementById(obj.id).innerHTML);
+            if(obj.id == ids[photo.getAttribute('src')]){
+                obj.disabled = true;
+                obj.style.backgroundColor = 'green';
+                obj.style.color = 'white';
+                score++;
+                sc.innerHTML = 'Score : ' + score;
+                if(score == 12){
+                    localStorage.setItem('score',score);
+                    window.location.href = 'gameover.html';
+                    return;
+                }
+                let p = Math.floor(Math.random() * 12);
+                while(hash[p]){
+                    p = Math.floor(Math.random() * 12);
+                }
+                hash[p] = true;
+                photo.src = animals[p];
+            }
+            else{
+                localStorage.setItem('score',score);
+                let ans = document.getElementById(ids[photo.getAttribute('src')]).innerHTML;
+                console.log(ans);
+                localStorage.setItem('ans',ans);
+                window.location.href = 'gameover.html';
+                return;
+            }
+        }
+
+    </script>
+</body>
+</html>
